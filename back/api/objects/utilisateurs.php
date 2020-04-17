@@ -15,12 +15,12 @@ class Utilisateurs {
     public $phone;
   
     // constructor with $db as database connection
-    public function __construct($db){
+    public function __construct($db) {
         $this->conn = $db;
     }
 
     // read utilsitaeurs
-    function read(){
+    function read() {
     
         // select all query
         $query = "
@@ -34,6 +34,27 @@ class Utilisateurs {
         $stmt->execute();
     
         return $stmt;
+    }
+
+    function delete() {
+
+        $query = "DELETE FROM 
+                    " . $this->table_name . "
+                    WHERE
+                        id=:id";
+        
+        $stmt = $this->conn->prepare($query);
+
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        
+        $stmt->bindParam(":id", $this->id);
+
+        // execute query
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
     }
 
     // create product
