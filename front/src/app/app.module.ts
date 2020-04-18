@@ -8,6 +8,7 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { HideButtonComponent } from './navigation/sidebar/hide-button/hide-button.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ConnexionComponent } from './users/connexion/connexion.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AboutComponent } from './about/about.component';
     SidebarComponent,
     HideButtonComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,

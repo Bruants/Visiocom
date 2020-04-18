@@ -1,0 +1,132 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h1 id="contrats-json">Contrats JSON</h1>
+<h2 id="1-lister-les-utilisateurs-sommaire">1) Lister les utilisateurs Sommaire</h2>
+<h3 id="1-1-d-tails-r-cup-ration-des-utilisateurs">1.1) Détails récupération des utilisateurs</h3>
+<p><strong>GET /users</strong> : tableau de &quot;user&quot;</p>
+<p>Un &quot;user&quot; :</p>
+<ul>
+<li><p>username : string (identifiant)</p>
+</li>
+<li><p>firstName : string</p>
+</li>
+<li><p>name : string</p>
+</li>
+<li><p>mail : string</p>
+</li>
+<li><p>phone : string</p>
+</li>
+</ul>
+<h3 id="1-2-exemple">1.2) Exemple</h3>
+<pre><code>[
+{
+    <span class="hljs-attr">"username"</span>: <span class="hljs-string">"corentin.goyat"</span>,
+    <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Corentin"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"GOYAT"</span>,
+    <span class="hljs-attr">"mail"</span>: <span class="hljs-string">"corentin.goyat@iut-rodez.fr"</span>,
+    <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"05.76.72.34.21"</span>
+}
+]
+</code></pre><h3 id="1-3-cr-ation-de-l-utilisateur">1.3) Création de l’utilisateur</h3>
+<p><strong>POST /users/damien.avetta-raymond</strong></p>
+<p>Exemple :</p>
+<pre><code>[
+
+    {
+
+        <span class="hljs-attr">"username"</span>: <span class="hljs-string">"damien.avetta-raymond"</span>,
+
+        <span class="hljs-attr">"password"</span>: <span class="hljs-string">"994ab52095316b9092f6b4a5c83c74d9cfee8b94"</span>,
+
+        <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Damien"</span>,
+
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"AVETTA-RAYMOND"</span>,
+
+        <span class="hljs-attr">"mail"</span>: <span class="hljs-string">"damien.avetta-raymond@iut-rodez.fr"</span>,
+
+        <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"06.72.82.20.91"</span>
+		
+    }
+
+]
+</code></pre><h2 id="2-g-rer-les-calendrier">2) Gérer les calendrier</h2>
+<p>Obtenir un calendrier : 
+<strong>GET <a href="https://www.googleapis.com/calendar/v3/calendars/{calendarId}">https://www.googleapis.com/calendar/v3/calendars/{calendarId}</a></strong> : tableau de &quot;calendar&quot;</p>
+<p>Un &quot;calendar&quot; : <a href="https://developers.google.com/calendar/v3/reference/calendars/get">https://developers.google.com/calendar/v3/reference/calendars/get</a></p>
+<p>Créer un calendrier :
+<strong>POST <a href="https://www.googleapis.com/calendar/v3/calendars">https://www.googleapis.com/calendar/v3/calendars</a></strong></p>
+<p>Utilisation : <a href="https://developers.google.com/calendar/v3/reference/calendars/insert">https://developers.google.com/calendar/v3/reference/calendars/insert</a></p>
+<p>Mise à jour d&#39;un calendrier :
+<strong>PATCH <a href="https://www.googleapis.com/calendar/v3/calendars/{calendarId}">https://www.googleapis.com/calendar/v3/calendars/{calendarId}</a></strong></p>
+<p>Utilisation : <a href="https://developers.google.com/calendar/v3/reference/calendars/patch">https://developers.google.com/calendar/v3/reference/calendars/patch</a></p>
+<p>Supprimer un calendrier :
+<strong>DELETE <a href="https://www.googleapis.com/calendar/v3/calendars/{calendarId}">https://www.googleapis.com/calendar/v3/calendars/{calendarId}</a></strong></p>
+<p>Utilisation : <a href="https://developers.google.com/calendar/v3/reference/calendars/delete">https://developers.google.com/calendar/v3/reference/calendars/delete</a></p>
+<h2 id="3-g-rer-les-projets">3) Gérer les projets</h2>
+<h3 id="3-1-lister-les-projets">3.1) Lister les projets</h3>
+<p>Obtenir un projet :
+<strong>GET api.trello.com/1/members/me/boards?fields=name,url&amp;key={apiKey}&amp;token={apiToken}</strong> : tableau de &quot;board&quot;  </p>
+<p>Un &quot;board&quot; : <a href="https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/">https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/</a></p>
+<p>Obtenir les listes d&#39;un projet :
+<strong>GET api.trello.com/1/boards/{id}/lists</strong> : tableau de &quot;list&quot;</p>
+<p>Un &quot;list&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-lists-get">https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-lists-get</a></p>
+<p>Obtenir les membres d&#39;un projet :
+<strong>GET api.trello.com/1/boards/{id}/memberships</strong> : tableau de &quot;membership&quot;</p>
+<p>Un &quot;membership&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-memberships-get">https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-memberships-get</a> </p>
+<p>Obtenir les cartes d&#39;une liste :
+<strong>GET api.trello.com/1/boards/{id}/lists/cards</strong> : tableau de &quot;cards&quot;</p>
+<p>Un &quot;card&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-lists-id-cards-get">https://developer.atlassian.com/cloud/trello/rest/#api-lists-id-cards-get</a></p>
+<p>Obtenir les checklists d&#39;une carte :
+<strong>GET api.trello.com/1/boards/{id}/checklists/{id}</strong> : tableau de &quot;checklist&quot;</p>
+<p>Un &quot;checklist&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-checklists-get">https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-checklists-get</a></p>
+<p>Obtenir les fichiers d&#39;une carte :
+<strong>GET api.trello.com/1/boards/{id}/cards/{idCard}/attachments</strong> : tableau de &quot;attachment&quot;</p>
+<p>Un &quot;attachment&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-get">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-get</a></p>
+<p>Obtenir les membres liés à une carte :
+<strong>GET api.trello.com/1/boards/{id}/cards/{idCard}/members</strong> : tableau de &quot;member&quot;</p>
+<p>Un &quot;member&quot; : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-members-get">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-members-get</a></p>
+<h3 id="2-2-modifier-un-projet">2.2) Modifier un projet</h3>
+<p>Créer un projet :
+<strong>POST api.trello.com/1/boards/</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-post">https://developer.atlassian.com/cloud/trello/rest/#api-boards-post</a></p>
+<p>Supprimer un projet :
+<strong>DELETE api.trello.com/1/boards/{id}</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-delete">https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-delete</a></p>
+<p>Créer une liste :
+<strong>POST api.trello.com/1/boards/{id}/lists</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-lists-post">https://developer.atlassian.com/cloud/trello/rest/#api-boards-id-lists-post</a></p>
+<p>Supprimer une liste :
+<strong>PUT api.trello.com/1/lists/{id}/closed</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-lists-id-closed-put">https://developer.atlassian.com/cloud/trello/rest/#api-lists-id-closed-put</a></p>
+<p>Créer une carte :
+<strong>POST api.trello.com/1/boards/{id}/lists/{id}/cards</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-post">https://developer.atlassian.com/cloud/trello/rest/#api-cards-post</a></p>
+<p>Supprimer une carte :
+<strong>DELETE api.trello.com/1/cards/{id}</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-delete">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-delete</a></p>
+<p>Mettre à jour une carte :
+<strong>PUT api.trello.com/1/cards/{id}</strong>
+Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-get">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-get</a></p>
+<p>Ajouter un fichier à une carte :
+<strong>POST api.trello.com/1/cards/{id}/attachments</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-post">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-post</a></p>
+<p>Retirer un fichier d&#39;une carte :
+<strong>DELETE api.trello.com/1/cards/{id}/attachments/{idAttachment}</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-idAttachment-delete">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-idAttachment-delete</a></p>
+<p>Ajouter une checklist à une carte :
+<strong>POST api.trello.com/1/cards/{id}/checklists</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-checklists-post">https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-checklists-post</a></p>
+<p>Supprimer une checklist d&#39;une carte :
+<strong>DELETE api.trello.com/1/checklists/{id}</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-delete">https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-delete</a></p>
+<p>Ajouter ou supprimer une tâche d&#39;une checklist :
+<strong>PUT api.trello.com/1/checklists/{id}/{field}</strong></p>
+<p>Utilisation : <a href="https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-field-put">https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-field-put</a></p>
+<p>Mettre à jour une checklist :
+<strong>PUT api.trello.com/1/checklists/{id}</strong></p>
+<p>Utilisation :<a href="https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-put">https://developer.atlassian.com/cloud/trello/rest/#api-checklists-id-put</a></p>
+<h2 id="4-lister-les-modifications">4) Lister les modifications</h2>
+<p><strong>GET /repos/{owner}/{repo}/commits</strong> : tableau de &quot;commit&quot;</p>
+<p>Un &quot;commit&quot; : <a href="https://developer.github.com/v3/git/commits/#get-a-commit">https://developer.github.com/v3/git/commits/#get-a-commit</a> </p>
+</body></html>
