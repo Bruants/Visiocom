@@ -1,8 +1,11 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+/* marche pas, mais voir si on le met dans styles.scss
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
+*/
 
 p {
     font-family: 'Poppins', sans-serif;
@@ -16,8 +19,5 @@ p {
     display: flex;
     align-items: stretch;
     perspective: 1500px;
-}
-
-app-navigation {
-    min-height: 100%;
+    height: 100vh;
 }
