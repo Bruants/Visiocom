@@ -5,7 +5,7 @@
 #sidebarCollapse {
     width: 40px;
     height: 40px;
-    background: #f5f5f5;
+    background: linear-gradient(90deg, #5B72CF 0%, rgb(125, 142, 209) 100%);
     padding: 1%;
     border: none;
 }
@@ -15,7 +15,7 @@
     height: 2px;
     margin: 0 auto;
     display: block;
-    background: #555;
+    background: #fff;
     transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
     transition-delay: 0.2s;
 }

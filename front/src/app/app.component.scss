@@ -1,23 +1,10 @@
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-/* marche pas, mais voir si on le met dans styles.scss
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}
-*/
-
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}
-
 .wrapper {
     display: flex;
     align-items: stretch;
     perspective: 1500px;
     min-height: 100vh;
+}
+
+app-sidebar-hide-button {
+    margin-right: 2%;
 }
