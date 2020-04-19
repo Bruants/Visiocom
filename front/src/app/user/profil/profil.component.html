@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>Modifier mes informations</h1>
+    <form class="profil-form" [formGroup]="profil" (ngSubmit)="modifierProfil()">
+        <div class="group">
+            <label for="user" class="label">Nom :</label>
+            <input id="user" type="text" class="input" placeholder="Saisissez votre nom..." tabindex="1" formControlName="name" required autofocus>
+        </div>
+        <div class="group">
+            <label for="user" class="label">Prénom :</label>
+            <input id="user" type="text" class="input" placeholder="Saisissez votre prénom..." value="coucou" tabindex="2" formControlName="firstName" required autofocus>
+        </div>
+        <div class="group">
+            <label for="user" class="label">Identifiant :</label>
+            <input id="user" type="text" class="input" placeholder="Saisissez un identifiant..." tabindex="3" formControlName="identifiant" required autofocus>
+        </div>
+        <div class="group">
+            <label for="pass" class="label">Mot de passe :</label>
+            <input id="pass" type="password" class="input" data-type="password" placeholder="Saisissez votre mot de passe..." formControlName="password" tabindex="4" required>
+        </div>
+        <div class="group" [hidden]="isShow">
+            <button class="button" (click)="show()">Modifier le mot de passe</button>
+        </div>
+        <div [hidden]="!isShow">
+            <div class="group">
+                <button class="button" (click)="noShow()">Ne pas modifier le mot de passe</button>
+            </div>
+            <div class="group">
+                <label for="pass" class="label">Nouveau mot de passe :</label>
+                <input id="pass" type="password" class="input" data-type="password" placeholder="Saisissez un mot de passe..." formControlName="newPassword" tabindex="4">
+            </div>
+            <div class="group">
+                <label for="pass" class="label">Confirmation du nouveau mot de passe :</label>
+                <input id="pass" type="password" class="input" data-type="password" placeholder="Resaisissez le mot de passe..." formControlName="repeatPassword" tabindex="5">
+            </div>
+        </div>
+        <div class="group">
+            <label for="pass" class="label">Mail :</label>
+            <input id="pass" type="email" class="input" placeholder="Saisissez votre adresse mail..." formControlName="mail" tabindex="6" required>
+        </div>
+        <div class="group">
+            <label for="pass" class="label">Numéro de téléphone :</label>
+            <input id="pass" type="tel" class="input" pattern="[0-9]{10}" maxlength="10" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="7">
+        </div>
+        <div class="group">
+            <input type="submit" class="button" [disabled]="invalidProfil()" value="Modifier le profil" tabindex="8">
+        </div>
+    </form>
+</div>

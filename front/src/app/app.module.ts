@@ -8,9 +8,9 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { HideButtonComponent } from './navigation/sidebar/hide-button/hide-button.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { ConnexionComponent } from './users/connexion/connexion.component';
+import { ConnexionComponent } from './user/connexion/connexion.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ProfilComponent } from './user/profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HideButtonComponent,
     HomeComponent,
     AboutComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,

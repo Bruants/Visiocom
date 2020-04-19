@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { ConnexionComponent } from './users/connexion/connexion.component';
+import { ConnexionComponent } from './user/connexion/connexion.component';
+import { ProfilComponent } from './user/profil/profil.component';
 
 const routes: Routes = [
   { 
@@ -17,7 +18,7 @@ const routes: Routes = [
     path: 'about', 
     component: AboutComponent },
   {
-    path: 'users',
+    path: 'user',
     children: [
       {
         path: '',
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'connexion',
         component: ConnexionComponent
+      },
+      {
+        path: 'profil',
+        component: ProfilComponent
       }
     ]
   }
