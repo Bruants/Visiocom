@@ -4,11 +4,7 @@ a{color:inherit;text-decoration:none}
 
 .login-wrap{
 	position:relative;
-	margin-top: 15px;
-	margin-left: 60%;
 	min-width:525px;
-	min-height:700px;
-	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 .login-html{
 	width: 100%;
@@ -48,8 +44,8 @@ a{color:inherit;text-decoration:none}
 }
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
-	color:#03a9f4;
-	border-color:#03a9f4;
+	color:#556dcf;
+	border-color:#556dcf;
 }
 .login-form{
 	min-height:345px;
@@ -83,11 +79,11 @@ a{color:inherit;text-decoration:none}
 	border-radius:25px;
 }
 .login-form .group .label{
-	color:#03a9f4;
+	color:#556dcf;
 	font-size:12px;
 }
 .login-form .group .button{
-	background:#03a9f4;
+	background:#556dcf;
 }
 .login-form .group label .icon{
 	width:15px;
@@ -121,7 +117,7 @@ a{color:inherit;text-decoration:none}
 	color:#212529;
 }
 .login-form .group .check:checked + label .icon{
-	background:#1161ee;
+	background:#7d8ed1;
 }
 .login-form .group .check:checked + label .icon:before{
 	transform:scale(1) rotate(45deg);
