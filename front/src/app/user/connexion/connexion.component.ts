@@ -53,7 +53,7 @@ export class ConnexionComponent implements OnInit {
   attemptRegistration() {
     if (!this.invalidInscription()) {
       let user = new User();
-      user.id = this.inscription.value.identifiant;
+      user.username = this.inscription.value.identifiant;
       user.name = this.inscription.value.name;
       user.firstName = this.inscription.value.firstName;
       user.password = this.inscription.value.password;
