@@ -7,14 +7,17 @@
     <ul class="list-unstyled components">
         <p>Facilitateur de communication</p>
         <li id="home">
-            <a [routerLink]="['home']" routerLinkActive="router-link-active">Home</a>
+            <a [routerLink]="['home']" routerLinkActive="router-link-active">Accueil</a>
         </li>
         <li id="about">
-            <a [routerLink]="['about']">About</a>
+            <a [routerLink]="['about']">À propos</a>
+        </li>
+        <li id="profile">
+            <a [routerLink]="['user/profil']">Mon profil</a>
         </li>
     </ul>
     <ul class="list-unstyled CTAs">
 
-        <li><a class="article" [routerLink]="['/users/connexion']" routerLinkActive="router-link-active">Connexion</a></li>
+        <li><a class="article" [routerLink]="['/user/connexion']" routerLinkActive="router-link-active">Connexion</a></li>
     </ul>
 </nav>
