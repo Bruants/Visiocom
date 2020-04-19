@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { ConnexionComponent } from './user/connexion/connexion.component';
+import { LoginComponent } from './user/login/login.component';
 import { ProfilComponent } from './user/profil/profil.component';
 
 const routes: Routes = [
@@ -22,11 +22,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ConnexionComponent
+        component: LoginComponent
       },
       {
-        path: 'connexion',
-        component: ConnexionComponent
+        path: 'login',
+        component: LoginComponent
       },
       {
         path: 'profil',

@@ -5,11 +5,11 @@ import { UserService } from 'src/app/user/auth/user.service';
 import { User } from 'src/app/user/user.model';
 
 @Component({
-  selector: 'app-connexion',
-  templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class ConnexionComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor(private formBuilder : FormBuilder, 
               private authService : AuthService,
@@ -42,7 +42,6 @@ export class ConnexionComponent implements OnInit {
   }
 
   attemptLogin() {
-    console.log("race");
     if (this.connexion.valid && 
         this.inscription.value.password == this.inscription.value.repeatPassword) 
     {

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { HomeComponent } from 'src/app/home/home.component';
-import { ConnexionComponent } from 'src/app/user/connexion/connexion.component';
-import { AboutComponent } from 'src/app/about/about.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',

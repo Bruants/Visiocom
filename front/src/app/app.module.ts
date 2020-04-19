@@ -8,7 +8,7 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { HideButtonComponent } from './navigation/sidebar/hide-button/hide-button.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { ConnexionComponent } from './user/connexion/connexion.component';
+import { LoginComponent } from './user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './user/profil/profil.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     HideButtonComponent,
     HomeComponent,
     AboutComponent,
-    ConnexionComponent,
+    LoginComponent,
     ProfilComponent
   ],
   imports: [
