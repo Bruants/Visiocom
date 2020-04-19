@@ -6,8 +6,7 @@ class Utilisateurs {
     private $table_name = "utilisateurs";
   
     // object properties
-    public $id;
-    public $username;
+    public $username; // PRIMARY KEY
     public $passwordHashed;
     public $firstname;
     public $name;
@@ -25,11 +24,14 @@ class Utilisateurs {
         // select all query
         $query = "
             SELECT *
-            FROM " . $this->table_name . "";
+            FROM " . $this->table_name . "
+            WHERE username=:username";
     
         // prepare query statement
         $stmt = $this->conn->prepare($query);
-    
+        $this->username=htmlspecialchars(strip_tags($this->username));
+        $stmt->bindParam(":username", $this->username);
+
         // execute query
         $stmt->execute();
     
@@ -41,13 +43,13 @@ class Utilisateurs {
         $query = "DELETE FROM 
                     " . $this->table_name . "
                     WHERE
-                        id=:id";
+                    username=:username";
         
         $stmt = $this->conn->prepare($query);
 
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->username=htmlspecialchars(strip_tags($this->username));
         
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":username", $this->username);
 
         // execute query
         if($stmt->execute()){
@@ -93,5 +95,47 @@ class Utilisateurs {
         return false;
 
     }
+
+    // patch the product
+function put(){
+  
+    // update query
+    $query = "UPDATE
+                " . $this->table_name . "
+            SET
+                passwordHashed = :passwordHashed,
+                firstname = :firstname,
+                name = :name,
+                mail = :mail,
+                phone = :phone
+            WHERE
+                username = :username";
+  
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+    
+        // sanitize
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->username=htmlspecialchars(strip_tags($this->username));
+        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
+        $this->firstname=htmlspecialchars(strip_tags($this->firstname));
+        $this->mail=htmlspecialchars(strip_tags($this->mail));
+        $this->phone=htmlspecialchars(strip_tags($this->phone));
+    
+        // bind values
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
+        $stmt->bindParam(":firstname", $this->firstname);
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":mail", $this->mail);
+        $stmt->bindParam(":phone", $this->phone);
+
+        // execute the query
+    if($stmt->execute()){
+        return true;
+    }
+  
+    return false;
+}
 }
 ?>
