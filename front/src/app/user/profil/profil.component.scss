@@ -85,6 +85,6 @@ a{color:inherit;text-decoration:none}
 .group .check:checked + label .icon{
 	background:#7d8ed1;
 }
-input[disabled] {
+.button[disabled] {
 	background-color: gray !important;
 }
