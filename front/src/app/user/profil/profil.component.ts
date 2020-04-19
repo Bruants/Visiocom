@@ -16,9 +16,9 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.profil = this.formBuilder.group({
+      identifiant: ['', Validators.required],
       name: ['', Validators.required],
       firstName: ['', Validators.required],
-      identifiant: ['', Validators.required],
       password: ['', Validators.required],
       newPassword: [''],
       repeatPassword: [''],
@@ -30,9 +30,9 @@ export class ProfilComponent implements OnInit {
   updateProfil() {
     // TODO
     this.profil = this.formBuilder.group({
+      identifiant: [this.profil.value.identifiant, Validators.required],
       name: [this.profil.value.name, Validators.required],
       firstName: [this.profil.value.firstName, Validators.required],
-      identifiant: [this.profil.value.identifiant, Validators.required],
       password: [this.profil.value.password, Validators.required],
       newPassword: [this.profil.value.newPassword],
       repeatPassword: [this.profil.value.repeatPassword],
