@@ -144,3 +144,6 @@ a{color:inherit;text-decoration:none}
 	text-align:center;
 	cursor: pointer;
 }
+input[disabled] {
+	background-color: gray !important;
+}

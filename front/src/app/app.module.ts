@@ -9,6 +9,7 @@ import { HideButtonComponent } from './navigation/sidebar/hide-button/hide-butto
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ConnexionComponent } from './users/connexion/connexion.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ConnexionComponent } from './users/connexion/connexion.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
