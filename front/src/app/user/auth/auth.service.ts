@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../classes/user.model';
+import { User } from '../user.model';
 
 const API_URL = 'http://localhost:4200';
 

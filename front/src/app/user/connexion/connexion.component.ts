@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/classes/user.model';
+import { AuthService } from 'src/app/user/auth/auth.service';
+import { UserService } from 'src/app/user/auth/user.service';
+import { User } from 'src/app/user/user.model';
 
 @Component({
   selector: 'app-connexion',
