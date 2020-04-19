@@ -24,9 +24,12 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  inWhichPages(): void {
+  inWhichPages(): void {    
+    console.debug(this.route.url);
     this.isInPage("home");
     this.isInPage("about");
+    this.isInPage("user");
+
   }
 
   isInPage(page: string): void {
