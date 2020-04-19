@@ -20,11 +20,13 @@ export class ConnexionComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.inscription = this.formBuilder.group({
+      name: ['', Validators.required],
+      firstName: ['', Validators.required],
       identifiant: ['', Validators.required],
       password: ['', Validators.required],
       repeatPassword: ['', Validators.required],
       mail: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required]
+      phone: ['']
     });
   }
 
