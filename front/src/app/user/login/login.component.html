@@ -6,7 +6,7 @@
 			<form class="sign-in-htm" [formGroup]="connexion" (ngSubmit)="attemptLogin()">
 				<div class="group">
 					<label for="id_c" class="label">Identifiant :</label>
-					<input id="id_c" type="text" class="input" placeholder="Saisissez votre identifiant..." tabindex="1" formControlName="identifiant" required autofocus>
+					<input id="id_c" type="text" class="input" placeholder="Saisissez votre identifiant..." tabindex="1" formControlName="username" required autofocus>
 				</div>
 				<div class="group">
 					<label for="pass_c" class="label">Mot de passe :</label>
@@ -35,7 +35,7 @@
 				</div>
 				<div class="group">
 					<label for="id_r" class="label">Identifiant :</label>
-					<input id="id_r" type="text" class="input" placeholder="Saisissez un identifiant..." tabindex="3" formControlName="identifiant" required autofocus>
+					<input id="id_r" type="text" class="input" placeholder="Saisissez un identifiant..." tabindex="3" formControlName="username" required autofocus>
 				</div>
 				<div class="group">
 					<label for="pass_r" class="label">Mot de passe :</label>

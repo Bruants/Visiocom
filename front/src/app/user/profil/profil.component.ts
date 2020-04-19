@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-profil',
@@ -7,8 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./profil.component.scss']
 })
 export class ProfilComponent implements OnInit {
+  currentUser: User;
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder,
+              private authService : AuthService,
+              private router : Router,) { 
+                this.authService.currentUser.subscribe(x => this.currentUser = x);
+              }
 
   profil : FormGroup;
 
@@ -45,6 +53,11 @@ export class ProfilComponent implements OnInit {
     /* TODO vérifier mot de passe */
     return this.profil.invalid || this.isShow && (this.profil.value.newPassword != this.profil.value.repeatPassword
                                                    || this.profil.value.newPassword == "")
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   modifierProfil() {

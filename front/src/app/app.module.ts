@@ -11,7 +11,11 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './user/profil/profil.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertComponent } from './navigation/alert/alert.component';
+import { JwtInterceptor } from './user/auth/jwt.service';
+import { ErrorInterceptor } from './user/error/interceptor.service';
+import { fakeBackendProvider } from './user/auth/fakebackend.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    ProfilComponent
+    ProfilComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,13 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../user.model';
-
-const API_URL = 'http://localhost:4200';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -20,19 +19,18 @@ export class AuthService {
         return this.currentUserSubject.value;
     }
 
-    login(id, password) {
-        return this.http.post<any>(API_URL + '/users/auth', { id, password })
-        .pipe(map(user => {
-            // garder les infos de l'utilisateur dans le stockage local
-            // pour le maintenir connecté à travers les mises à jour de la page
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-            return user;
-        }));
+    login(username, password) {
+        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
+            .pipe(map(user => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+                return user;
+            }));
     }
 
     logout() {
-        // supprimer l'utilisateur précédent du stockage local
+        // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }

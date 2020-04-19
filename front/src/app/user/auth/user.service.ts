@@ -1,22 +1,24 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../user.model';
-import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-const API_URL = 'http://localhost:4200';
+// TODO
+const API_URL = "http://localhost:4200"
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
+    constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
+    getAll() {
+        return this.http.get<User[]>(`${environment.apiUrl}/users`);
+    }
 
-  getAll() : Observable<User[]> {
-      return this.http.get<User[]>(API_URL + '/users');
-  }
+    register(user: User) {
+        return this.http.post(`${environment.apiUrl}/users/register`, user);
+    }
 
-  register(utilisateur: User) {
-      return this.http.post(API_URL + '/users/register', utilisateur);
-  }
+    delete(id: number) {
+        return this.http.delete(`${environment.apiUrl}/users/${id}`);
+    }
 }

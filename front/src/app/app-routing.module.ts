@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { ProfilComponent } from './user/profil/profil.component';
+import { AuthGuard } from './user/auth/guard.service';
 
 const routes: Routes = [
   { 
@@ -30,6 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'profil',
+        canActivate: [AuthGuard],
         component: ProfilComponent
       }
     ]
