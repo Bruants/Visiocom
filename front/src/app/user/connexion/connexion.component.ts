@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/classes/user.model';
 
 @Component({
   selector: 'app-connexion',
@@ -8,10 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ConnexionComponent implements OnInit {
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder, 
+              private authService : AuthService,
+              private userService : UserService) { }
 
   connexion : FormGroup;
-
   inscription : FormGroup;
 
   ngOnInit(): void {
@@ -30,23 +34,32 @@ export class ConnexionComponent implements OnInit {
     });
   }
 
-  invalidInscription() : boolean {
-    return this.inscription.invalid || this.inscription.value.password != this.inscription.value.repeatPassword ||
-                                       this.inscription.value.password == "";
+  invalidInscription() : boolean
+  {
+    return this.inscription.invalid || 
+           this.inscription.value.password != this.inscription.value.repeatPassword ||
+           this.inscription.value.password == "";
   }
 
-  toLogIn() {
-    if (this.connexion.valid && this.inscription.value.password == this.inscription.value.repeatPassword) {
-      alert("TODO Connexion");
-      /* TODO */
+  attemptLogin() {
+    console.log("race");
+    if (this.connexion.valid && 
+        this.inscription.value.password == this.inscription.value.repeatPassword) 
+    {
+      this.authService.login(this.connexion.value.identifiant, this.connexion.value.password);
     }
   }
 
-  toRegister() {
+  attemptRegistration() {
     if (!this.invalidInscription()) {
-      alert("TODO Inscription");
-      /* TODO */
+      let user = new User();
+      user.id = this.inscription.value.identifiant;
+      user.name = this.inscription.value.name;
+      user.firstName = this.inscription.value.firstName;
+      user.password = this.inscription.value.password;
+      user.mail = this.inscription.value.mail;
+      user.phone = this.inscription.value.phone;
+      this.userService.register(user);
     }
   }
-
 }

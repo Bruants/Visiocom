@@ -11,6 +11,8 @@ import { AboutComponent } from './about/about.component';
 import { ConnexionComponent } from './user/connexion/connexion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './user/profil/profil.component';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { ProfilComponent } from './user/profil/profil.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

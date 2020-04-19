@@ -3,14 +3,14 @@
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Se connecter</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">S'inscrire</label>
 		<div class="login-form">
-			<form class="sign-in-htm" [formGroup]="connexion" (ngSubmit)="toLogIn()">
+			<form class="sign-in-htm" [formGroup]="connexion" (ngSubmit)="attemptLogin()">
 				<div class="group">
-					<label for="user" class="label">Identifiant :</label>
-					<input id="user" type="text" class="input" placeholder="Saisissez votre identifiant..." tabindex="1" formControlName="identifiant" required autofocus>
+					<label for="id_c" class="label">Identifiant :</label>
+					<input id="id_c" type="text" class="input" placeholder="Saisissez votre identifiant..." tabindex="1" formControlName="identifiant" required autofocus>
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Mot de passe :</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Saisissez votre mot de passe..." tabindex="2" formControlName="password" required>
+					<label for="pass_c" class="label">Mot de passe :</label>
+					<input id="pass_c" type="password" class="input" data-type="password" placeholder="Saisissez votre mot de passe..." tabindex="2" formControlName="password" required>
 				</div>
 				<div class="group">
 					<input id="check" type="checkbox" class="check" checked tabindex="3">
@@ -24,34 +24,34 @@
 					<a href="#forgot">Mot de passe oublié ?</a>
 				</div>
 			</form>
-			<form class="sign-up-htm" [formGroup]="inscription" (ngSubmit)="toRegister()">
+			<form class="sign-up-htm" [formGroup]="inscription" (ngSubmit)="attemptRegistration()">
 				<div class="group">
-					<label for="user" class="label">Nom :</label>
-					<input id="user" type="text" class="input" placeholder="Saisissez votre nom..." tabindex="1" formControlName="name" required autofocus>
+					<label for="name" class="label">Nom :</label>
+					<input id="name" type="text" class="input" placeholder="Saisissez votre nom..." tabindex="1" formControlName="name" required autofocus>
 				</div>
 				<div class="group">
-					<label for="user" class="label">Prénom :</label>
-					<input id="user" type="text" class="input" placeholder="Saisissez votre prénom..." tabindex="2" formControlName="firstName" required autofocus>
+					<label for="firstName" class="label">Prénom :</label>
+					<input id="firstName" type="text" class="input" placeholder="Saisissez votre prénom..." tabindex="2" formControlName="firstName" required autofocus>
 				</div>
 				<div class="group">
-					<label for="user" class="label">Identifiant :</label>
-					<input id="user" type="text" class="input" placeholder="Saisissez un identifiant..." tabindex="3" formControlName="identifiant" required autofocus>
+					<label for="id_r" class="label">Identifiant :</label>
+					<input id="id_r" type="text" class="input" placeholder="Saisissez un identifiant..." tabindex="3" formControlName="identifiant" required autofocus>
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Mot de passe :</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Saisissez un mot de passe..." formControlName="password" tabindex="4" required>
+					<label for="pass_r" class="label">Mot de passe :</label>
+					<input id="pass_r" type="password" class="input" data-type="password" placeholder="Saisissez un mot de passe..." formControlName="password" tabindex="4" required>
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Confirmation du mot de passe :</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Resaisissez le mot de passe..." formControlName="repeatPassword" tabindex="5" required>
+					<label for="confirm" class="label">Confirmation du mot de passe :</label>
+					<input id="confirm" type="password" class="input" data-type="password" placeholder="Resaisissez le mot de passe..." formControlName="repeatPassword" tabindex="5" required>
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Mail :</label>
-					<input id="pass" type="email" class="input" placeholder="Saisissez votre adresse mail..." formControlName="mail" tabindex="6" required>
+					<label for="mail" class="label">Mail :</label>
+					<input id="mail" type="email" class="input" placeholder="Saisissez votre adresse mail..." formControlName="mail" tabindex="6" required>
 				</div>
 				<div class="group">
-                    <label for="pass" class="label">Numéro de téléphone :</label>
-                    <input id="pass" type="tel" class="input" pattern="[0-9]{10}" maxlength="10" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="7">
+                    <label for="phone" class="label">Numéro de téléphone :</label>
+                    <input id="phone" type="tel" class="input" pattern="[0-9]{10}" maxlength="10" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="7">
 				</div>
 				<div class="group">
 					<input type="submit" class="button" [disabled]="invalidInscription()" value="Inscription" tabindex="8">
