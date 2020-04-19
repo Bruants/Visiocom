@@ -22,7 +22,6 @@ if (isset(getallheaders()["Authorization"]) && !empty($data->username) && isVali
     $utilisateur = new Utilisateurs($db);
     
     // get posted data
-    
     if(
         !empty($data->password) &&
         !empty($data->firstname) &&

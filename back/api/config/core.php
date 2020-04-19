@@ -9,4 +9,5 @@ date_default_timezone_set('Asia/Manila');
 $key = "edrtyidscfvjios<hnjvioù<sdnvwdionvbwdiornvgbqeiodrvbnoidqb";
 $iss = "http://example.org";
 $aud = "http://example.com";
+$iat = "1516239022";
 ?>

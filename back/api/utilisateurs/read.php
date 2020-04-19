@@ -7,10 +7,6 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../objects/utilisateurs.php';
 include_once '../validate_token.php';
-  
-
-
-
 
 // Verify token 
 if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isValid(getallheaders()["Authorization"], $_GET["username"]) == true) {
@@ -51,15 +47,13 @@ if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isVal
                     "mail" => $mail,
                     "phone" => $phone
                 );
-
-                array_push($utilisateurs_arr["records"], $utilisateurs_item);
             }
         
             // set response code - 200 OK
             http_response_code(200);
         
             // show utilisateurs data in json format
-            echo json_encode($utilisateurs_arr);
+            echo json_encode($utilisateurs_item);
         } else{
         
             // set response code - 404 Not found

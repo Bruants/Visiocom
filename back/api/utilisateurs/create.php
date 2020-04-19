@@ -7,12 +7,11 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
   
 // get database connection
-include_once '../config/database.php';
+include_once './api/config/database.php';
   
 // instantiate utilisateur object
-include_once '../objects/utilisateurs.php';  
-include_once '../validate_token.php';
-
+include_once './api/objects/utilisateurs.php';  
+include_once './api/validate_token.php';
 
 // Verify token 
 if (!isset(getallheaders()["Authorization"])) {
@@ -23,7 +22,7 @@ if (!isset(getallheaders()["Authorization"])) {
     
     // get posted data
     $data = json_decode(file_get_contents("php://input"));
-    
+    echo empty($data->password);
     // make sure data is not empty
     if(
         !empty($data->username) &&

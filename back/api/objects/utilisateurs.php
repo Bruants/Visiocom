@@ -18,7 +18,31 @@ class Utilisateurs {
         $this->conn = $db;
     }
 
+    
     // read utilsitaeurs
+    function connect() {
+    
+        // select all query
+        $query = "
+            SELECT *
+            FROM " . $this->table_name . "
+            WHERE username=:username AND passwordHashed=:passwordHashed";
+    
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        $this->username=htmlspecialchars(strip_tags($this->username));
+        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
+
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
+
+        // execute query
+        $stmt->execute();
+    
+        return $stmt;
+    }
+
+    // read utilisateurs
     function read() {
     
         // select all query
