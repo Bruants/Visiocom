@@ -1,0 +1,90 @@
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+a{color:inherit;text-decoration:none}
+
+.profil-form {
+    margin-top: 30px;
+
+}
+
+.tab, .group .label, .group .button {
+	text-transform:uppercase;
+}
+.tab {
+	font-size:22px;
+	margin-right:15px;
+	padding-bottom:5px;
+	margin:0 15px 10px 0;
+	display:inline-block;
+	border-bottom:2px solid transparent;
+}
+
+.group{
+	margin-bottom:15px;
+}
+.group .label, .group .input {
+	width:100%;
+	color:gray;
+	display:block;
+}
+.group .button {
+	width:100%;
+	color:white;
+	display:block;
+}
+.group .input {
+	border:none;
+	padding:10px 15px;
+	border-radius:25px;
+	border: 1px solid gray
+}
+.group .button{
+	border:none;
+	padding:10px 15px;
+	border-radius:25px;
+	margin-bottom: 10px;
+}
+.group .label{
+	color:#556dcf;
+	font-size:12px;
+}
+.group .button{
+	background:#556dcf;
+}
+.group label .icon{
+	width:15px;
+	height:15px;
+	border-radius:2px;
+	position:relative;
+	display:inline-block;
+	background:rgba(151, 151, 151, 0.4);
+}
+.group label .icon:before,
+.group label .icon:after{
+	content:'';
+	width:10px;
+	height:2px;
+	background:#fff;
+	position:absolute;
+	transition:all .2s ease-in-out 0s;
+}
+.group label .icon:before{
+	left:3px;
+	width:5px;
+	bottom:6px;
+	transform:scale(0) rotate(0);
+}
+.group label .icon:after{
+	top:6px;
+	right:0;
+	transform:scale(0) rotate(0);
+}
+.group .check:checked + label{
+	color:#212529;
+}
+.group .check:checked + label .icon{
+	background:#7d8ed1;
+}
+.button[disabled] {
+	background-color: gray !important;
+}

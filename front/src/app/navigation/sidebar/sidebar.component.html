@@ -1,0 +1,29 @@
+<!-- Sidebar Holder -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h1>Visiocom</h1>
+    </div>
+
+    <ul class="list-unstyled components">
+        <p>Facilitateur de communication</p>
+        <li id="home">
+            <a [routerLink]="['home']" routerLinkActive="router-link-active">Accueil</a>
+        </li>
+        <li id="about">
+            <a [routerLink]="['about']">À propos</a>
+        </li>
+        <li id="user">
+            <a [routerLink]="['user/profil']" [hidden]="!userLogged()">Mon profil</a>
+        </li>
+    </ul>
+    <ul class="list-unstyled CTAs">
+        <div *ngIf="userLogged(); then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <li><a class="article" (click)="logout()" [routerLink]="['user/login']" routerLinkActive="router-link-active">Déconnexion</a></li>
+        </ng-template>
+        <ng-template #elseBlock>
+            <li><a class="article" [routerLink]="['user/login']" routerLinkActive="router-link-active">Connexion</a></li>
+        </ng-template>
+        
+    </ul>
+</nav>
