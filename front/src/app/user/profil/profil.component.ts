@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../user.model';
 import { UserService } from '../auth/user.service';
-import { first } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profil',
@@ -13,9 +14,12 @@ import { first } from 'rxjs/operators';
 export class ProfilComponent implements OnInit {
   currentUser : User
 
+  private currentUserSubject: BehaviorSubject<User>;
+
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
               private userService : UserService) { 
+                this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -29,6 +33,11 @@ export class ProfilComponent implements OnInit {
 
   refreshProfil() {
     /* Mise à jour du formulaire (Nouvelles valeurs) */
+    this.userService.get(this.currentUser.username).subscribe(datas => {
+      console.log(datas);
+      this.currentUser = datas;
+    });
+
     this.profil = this.formBuilder.group({
       username: [this.currentUser.username, Validators.required],
       name: [this.currentUser.name, Validators.required],

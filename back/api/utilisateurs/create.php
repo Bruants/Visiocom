@@ -1,7 +1,7 @@
 <?php
 // required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -22,12 +22,11 @@ if (!isset(getallheaders()["Authorization"])) {
     
     // get posted data
     $data = json_decode(file_get_contents("php://input"));
-    echo empty($data->password);
     // make sure data is not empty
     if(
         !empty($data->username) &&
         !empty($data->password) &&
-        !empty($data->firstname) &&
+        !empty($data->firstName) &&
         !empty($data->name) &&
         !empty($data->mail) &&
         !empty($data->phone)
@@ -36,7 +35,7 @@ if (!isset(getallheaders()["Authorization"])) {
         // set utilisateur property values
         $utilisateur->username = $data->username;
         $utilisateur->passwordHashed = $data->password;
-        $utilisateur->firstname = $data->firstname;
+        $utilisateur->firstname = $data->firstName;
         $utilisateur->name = $data->name;
         $utilisateur->mail = $data->mail;
         $utilisateur->phone = $data->phone;

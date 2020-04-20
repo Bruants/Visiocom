@@ -15,7 +15,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './navigation/alert/alert.component';
 import { JwtInterceptor } from './user/auth/jwt.service';
 import { ErrorInterceptor } from './user/error/interceptor.service';
-import { fakeBackendProvider } from './user/auth/fakebackend.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,7 @@ import { fakeBackendProvider } from './user/auth/fakebackend.service';
     AboutComponent,
     LoginComponent,
     ProfilComponent,
-    AlertComponent
+    AlertComponent  
   ],
   imports: [
     BrowserModule,
@@ -40,7 +39,6 @@ import { fakeBackendProvider } from './user/auth/fakebackend.service';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

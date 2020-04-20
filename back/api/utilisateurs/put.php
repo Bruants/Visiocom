@@ -24,7 +24,7 @@ if (isset(getallheaders()["Authorization"]) && !empty($data->username) && isVali
     // get posted data
     if(
         !empty($data->password) &&
-        !empty($data->firstname) &&
+        !empty($data->firstName) &&
         !empty($data->name) &&
         !empty($data->mail) &&
         !empty($data->phone)
@@ -33,7 +33,7 @@ if (isset(getallheaders()["Authorization"]) && !empty($data->username) && isVali
         // set utilisateur property values
         $utilisateur->username = $data->username;
         $utilisateur->passwordHashed = $data->password;
-        $utilisateur->firstname = $data->firstname;
+        $utilisateur->firstname = $data->firstName;
         $utilisateur->name = $data->name;
         $utilisateur->mail = $data->mail;
         $utilisateur->phone = $data->phone;

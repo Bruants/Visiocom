@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../user.model';
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     login(username, password) {
-        return this.http.post<any>('${environment.apiUrl}/users/authenticate', { username, password })
+        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password }, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
                    .pipe(map(user => {
                         // Stocker les détails de l'utilisateur et le jeton JWT dans le stockage local
                         localStorage.setItem('currentUser', JSON.stringify(user));
