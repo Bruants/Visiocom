@@ -20,17 +20,17 @@ export class AuthService {
     }
 
     login(username, password) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
-            }));
+        return this.http.post<any>('${environment.apiUrl}/users/authenticate', { username, password })
+                   .pipe(map(user => {
+                        // Stocker les détails de l'utilisateur et le jeton JWT dans le stockage local
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.currentUserSubject.next(user);
+                        return user;
+                    }));
     }
 
     logout() {
-        // remove user from local storage and set current user to null
+        // Suppression des données pour l'utilisateur courant dans le stockage local
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }

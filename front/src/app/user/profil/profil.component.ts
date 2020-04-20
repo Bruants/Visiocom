@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
 import { User } from '../user.model';
+import { UserService } from '../auth/user.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profil',
@@ -10,11 +11,11 @@ import { User } from '../user.model';
   styleUrls: ['./profil.component.scss']
 })
 export class ProfilComponent implements OnInit {
-  currentUser: User;
+  currentUser : User
 
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
-              private router : Router,) { 
+              private userService : UserService) { 
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -23,22 +24,27 @@ export class ProfilComponent implements OnInit {
   isShow : boolean = false;
 
   ngOnInit(): void {
+    this.refreshProfil();
+  }
+
+  refreshProfil() {
+    /* Mise à jour du formulaire (Nouvelles valeurs) */
     this.profil = this.formBuilder.group({
-      identifiant: ['', Validators.required],
-      name: ['', Validators.required],
-      firstName: ['', Validators.required],
+      username: [this.currentUser.username, Validators.required],
+      name: [this.currentUser.name, Validators.required],
+      firstName: [this.currentUser.firstName, Validators.required],
       password: ['', Validators.required],
       newPassword: [''],
       repeatPassword: [''],
-      mail: ['', [Validators.required, Validators.email]],
-      phone: ['']
+      mail: [this.currentUser.mail, [Validators.required, Validators.email]],
+      phone: [this.currentUser.phone]
     });
   }
 
   updateProfil() {
-    // TODO
+    /* Actualisation du formulaire (Maintient des valeurs) */
     this.profil = this.formBuilder.group({
-      identifiant: [this.profil.value.identifiant, Validators.required],
+      username: [this.currentUser.username, Validators.required],
       name: [this.profil.value.name, Validators.required],
       firstName: [this.profil.value.firstName, Validators.required],
       password: [this.profil.value.password, Validators.required],
@@ -50,20 +56,22 @@ export class ProfilComponent implements OnInit {
   }
 
   invalidProfil() : boolean {
-    /* TODO vérifier mot de passe */
+    console.log(this.currentUser.password);
     return this.profil.invalid || this.isShow && (this.profil.value.newPassword != this.profil.value.repeatPassword
-                                                   || this.profil.value.newPassword == "")
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+                                                   || this.profil.value.newPassword == "");
   }
 
   modifierProfil() {
     if (!this.invalidProfil()) {
-      // TODO
-      this.updateProfil();
+      this.currentUser.name = this.profil.value.name;
+      this.currentUser.firstName = this.profil.value.firstName;
+      if (this.isShow) {
+        this.currentUser.password = this.profil.value.password;
+      }
+      this.currentUser.mail = this.profil.value.mail;
+      this.currentUser.phone = this.profil.value.phone;
+      this.userService.modify(this.currentUser);
+      this.refreshProfil();
     }
   }
 

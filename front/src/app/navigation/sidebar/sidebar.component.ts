@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/user/auth/auth.service';
+import { AuthGuard } from 'src/app/user/auth/guard.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,23 +12,20 @@ export class SidebarComponent implements OnInit {
 
   route: Router
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private authService : AuthService) {
     this.router.events.subscribe(evt => {
       this.route = router;
       this.inWhichPages();
   });
    }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   inWhichPages(): void {    
-    console.debug(this.route.url);
     this.isInPage("home");
     this.isInPage("about");
     this.isInPage("user");
-
   }
 
   isInPage(page: string): void {
@@ -35,5 +34,19 @@ export class SidebarComponent implements OnInit {
     } else {
       document.getElementById(page).className = ""
     }
+  }
+
+  userLogged() : boolean {
+    const currentUser = this.authService.currentUserValue;
+    /* Utilisateur connecté */
+    if (currentUser) {
+      return true;
+    }
+    return false;
+  }
+
+  logout() {
+    this.router.navigate(['user/login']);
+    this.authService.logout();
   }
 }

@@ -13,11 +13,17 @@
             <a [routerLink]="['about']">À propos</a>
         </li>
         <li id="user">
-            <a [routerLink]="['user/profil']">Mon profil</a>
+            <a [routerLink]="['user/profil']" [hidden]="!userLogged()">Mon profil</a>
         </li>
     </ul>
     <ul class="list-unstyled CTAs">
-
-        <li><a class="article" [routerLink]="['user/login']" routerLinkActive="router-link-active">Connexion</a></li>
+        <div *ngIf="userLogged(); then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <li><a class="article" (click)="logout()" [routerLink]="['user/login']" routerLinkActive="router-link-active">Déconnexion</a></li>
+        </ng-template>
+        <ng-template #elseBlock>
+            <li><a class="article" [routerLink]="['user/login']" routerLinkActive="router-link-active">Connexion</a></li>
+        </ng-template>
+        
     </ul>
 </nav>

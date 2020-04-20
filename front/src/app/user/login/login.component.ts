@@ -21,9 +21,6 @@ export class LoginComponent implements OnInit {
               private userService : UserService) { }
 
   connexion : FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
 
   inscription : FormGroup;
 
@@ -43,80 +40,55 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.connexion.controls; }
-
-  get fIns() { return this.inscription.controls; }
-
-  invalidInscription() : boolean
-  {
+  invalidInscription() : boolean {
     return this.inscription.invalid || 
            this.inscription.value.password != this.inscription.value.repeatPassword ||
            this.inscription.value.password == "";
   }
 
   attemptLogin() {
+    /* Nettoyage de la fenêtre d'alerte */
+    this.alertService.clear();
+
     if (this.connexion.valid) {
-      //this.authService.login(this.connexion.value.identifiant, this.connexion.value.password);
-      this.submitted = true;
-
-        // reset alerts on submit
-        this.alertService.clear();
-
-        // stop here if form is invalid
-        if (this.connexion.invalid) {
-            return;
-        }
-
-        this.returnUrl = "about";
-
-        this.loading = true;
-        this.authService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+      this.authService.login(this.connexion.value.username, this.connexion.value.password)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.router.navigate(['home']);
+            },
+            error => {
+              this.alertService.error(error);
+            }
+          );
     }
   }
 
   attemptRegistration() {
+    /* Nettoyage de la fenêtre d'alerte */
+    this.alertService.clear();
     if (!this.invalidInscription()) {
       let user = new User();
+      /* Récupération des champs */
       user.username = this.inscription.value.username;
       user.name = this.inscription.value.name;
       user.firstName = this.inscription.value.firstName;
       user.password = this.inscription.value.password;
       user.mail = this.inscription.value.mail;
       user.phone = this.inscription.value.phone;
+      /* Inscription de user */
       this.userService.register(user);
-      //this.authService.login(this.connexion.value.identifiant, this.connexion.value.password);
-      this.submitted = true;
-
-        // reset alerts on submit
-        this.alertService.clear();
-
-        // stop here if form is invalid
-        if (this.inscription.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.userService.register(this.inscription.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['user/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+      this.userService.register(this.inscription.value)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.alertService.success('Inscription réussite', true);
+              this.router.navigate(['user/login']);
+            },
+            error => {
+              this.alertService.error(error);
+            }
+          );
     }
   }
 }

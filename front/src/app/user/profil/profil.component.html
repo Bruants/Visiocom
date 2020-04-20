@@ -1,9 +1,9 @@
 <div class="container">
     <h1>Modifier mes informations</h1>
-    <form class="profil-form" [formGroup]="profil" (ngSubmit)="modifierProfil()">
+    <form class="profil-form" [formGroup]="profil">
         <div class="group">
             <label for="user" class="label">Identifiant :</label>
-            <input id="user" type="text" class="input" formControlName="identifiant" disabled>
+            <input id="user" type="text" class="input" formControlName="username" disabled>
         </div>
         <div class="group">
             <label for="user" class="label">Nom :</label>
@@ -42,8 +42,7 @@
             <input id="pass" type="tel" class="input" pattern="[0-9]{10}" maxlength="10" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="8">
         </div>
         <div class="group">
-            <input type="submit" class="button" [disabled]="invalidProfil()" value="Modifier le profil" tabindex="9">
-        </div>
+            <input type="submit" class="button" [disabled]="invalidProfil()" (click) ="modifierProfil()" value="Modifier le profil" tabindex="9">
+        </div> 
     </form>
-    <button (click)="logout()">Déconnexion</button>
 </div>
