@@ -1,18 +1,17 @@
 <?php
 
 // entêtes requises
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: http://localhost:4200");
 header("Access-Control-Allow-Methods: DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Authorization");
 
 // fichier de connexion à la base de données
-include_once '../config/database.php';
-
-// instance d'un objet utilisateur
-include_once '../objects/utilisateurs.php';
-include_once '../validate_token.php';
+include_once './api/config/database.php';
+  
+// instantiate utilisateur object
+include_once './api/objects/utilisateurs.php';  
+include_once './api/validate_token.php';
 
 // récupère les données du json
 $data = json_decode(file_get_contents("php://input"));

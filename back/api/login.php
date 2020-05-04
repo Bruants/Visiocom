@@ -20,45 +20,49 @@ if( !empty($data->username) && !empty($data->password) ) {
 
     $database = new Database();
     $db = $database->getConnection();
-    // initialize object
     $utilisateurs = new Utilisateurs($db);
+
+    // initialize object
     $utilisateurs->username = $data->username;
-    $utilisateurs->passwordHashed = $data->password;
-    $stmt = $utilisateurs->connect();
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
- 
+    $stmt = $utilisateurs->read();
     // assign values to object properties
-    if($stmt->rowCount() == 1) {
-        $token = array(
-            "iss" => $iss,
-            "aud" => $aud,
-            "iat" => $iat,
-            "username" => $data->username,
-         );
-            // set response code
-            http_response_code(200);
-         
-            // generate jwt
-            $jwt = JWT::encode($token, $key);
-            echo json_encode(
-                    array(
-                        "token" => $jwt,
-                        "username" => $data->username,
-                        "firstName" => $row["firstname"],
-                        "name" => $row["name"],
-                        "phone" => $row["phone"],
-                        "mail" => $row["mail"]
-                    )
-                );
-    } else {
-        http_response_code(401);
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        // extract row
+        // this will make $row['name'] to
+        // just $name only
+        extract($row);
 
-        echo json_encode(
-            array(
-                "error" => "Username or password invalid"
-            )
-        );
+        if(password_verify ( $data->password, $passwordHashed )) {
+            $token = array(
+                "iss" => $iss,
+                "aud" => $aud,
+                "iat" => $iat,
+                "username" => $data->username,
+            );
+                // set response code
+                http_response_code(200);
+            
+                // generate jwt
+                $jwt = JWT::encode($token, $key);
+                echo json_encode(
+                        array(
+                            "token" => $jwt,
+                            "username" => $data->username,
+                            "firstName" => $row["firstName"],
+                            "name" => $row["name"],
+                            "phone" => $row["phone"],
+                            "mail" => $row["mail"]
+                        )
+                    );
+        } else {
+            http_response_code(401);
+
+            echo json_encode(
+                array(
+                    "error" => "Username or password invalid"
+                )
+            );
+        }
     }
 
 }
