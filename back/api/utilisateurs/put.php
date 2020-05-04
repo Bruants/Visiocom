@@ -1,17 +1,16 @@
 <?php
 // required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: http://localhost:4200");
 header("Access-Control-Allow-Methods: PUT");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Authorization");
   
 // get database connection
-include_once '../config/database.php';
+include_once './api/config/database.php';
   
 // instantiate utilisateur object
-include_once '../objects/utilisateurs.php';
-include_once '../validate_token.php';
+include_once './api/objects/utilisateurs.php';  
+include_once './api/validate_token.php';
 $data = json_decode(file_get_contents("php://input"));
 
 // Verify token 
@@ -30,10 +29,10 @@ if (isset(getallheaders()["Authorization"]) && !empty($data->username) && isVali
         !empty($data->phone)
     ){
     
-        // set utilisateur property values
+        // set utilisateur property val ues
         $utilisateur->username = $data->username;
         $utilisateur->passwordHashed = $data->password;
-        $utilisateur->firstname = $data->firstName;
+        $utilisateur->firstName = $data->firstName;
         $utilisateur->name = $data->name;
         $utilisateur->mail = $data->mail;
         $utilisateur->phone = $data->phone;
