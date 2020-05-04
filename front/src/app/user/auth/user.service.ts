@@ -24,6 +24,6 @@ export class UserService {
     }
 
     modify(user: User) {
-        return this.http.put(`${environment.apiUrl}/users/${user.username}`, user, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }});
+        return this.http.put<User>(`${environment.apiUrl}/users/${user.username}`, user, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }});
     }
 }

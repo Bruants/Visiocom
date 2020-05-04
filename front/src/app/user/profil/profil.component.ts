@@ -34,7 +34,6 @@ export class ProfilComponent implements OnInit {
   refreshProfil() {
     /* Mise à jour du formulaire (Nouvelles valeurs) */
     this.userService.get(this.currentUser.username).subscribe(datas => {
-      console.log(datas);
       this.currentUser = datas;
     });
 
@@ -65,7 +64,6 @@ export class ProfilComponent implements OnInit {
   }
 
   invalidProfil() : boolean {
-    console.log(this.currentUser.password);
     return this.profil.invalid || this.isShow && (this.profil.value.newPassword != this.profil.value.repeatPassword
                                                    || this.profil.value.newPassword == "");
   }
