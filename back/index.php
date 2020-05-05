@@ -4,10 +4,12 @@ include_once './router.php';
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Content-Type: application/json; charset=UTF-8");
     header("Access-Control-Allow-Origin: http://localhost:4200");
-    header("Access-Control-Allow-Headers: Authorization");
-
+    header("Access-Control-Allow-Headers: Authorization, Content-Type");
+    header("Access-Control-Allow-Methods: PUT, GET, DELETE, POST, OPTIONS");
+    header("Content-Type: application/json");
     header("HTTP/1.1 200 ");
-    exit;}
+    exit;
+}
 $router = new Router($_GET['url']); 
 $router->post('/users/authenticate', function(){ require("./api/login.php"); }); // login
 

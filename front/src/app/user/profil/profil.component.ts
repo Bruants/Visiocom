@@ -78,7 +78,6 @@ export class ProfilComponent implements OnInit {
       this.currentUser.mail = this.profil.value.mail;
       this.currentUser.phone = this.profil.value.phone;
       this.userService.modify(this.currentUser);
-      this.refreshProfil();
     }
   }
 

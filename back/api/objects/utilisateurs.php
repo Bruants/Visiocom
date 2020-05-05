@@ -103,7 +103,6 @@ function put(){
     $query = "UPDATE
                 " . $this->table_name . "
             SET
-                passwordHashed = :passwordHashed,
                 firstName = :firstName,
                 name = :name,
                 mail = :mail,
@@ -117,14 +116,12 @@ function put(){
         // sanitize
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
         $this->firstName=htmlspecialchars(strip_tags($this->firstName));
         $this->mail=htmlspecialchars(strip_tags($this->mail));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
     
         // bind values
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
         $stmt->bindParam(":firstName", $this->firstName);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":mail", $this->mail);
