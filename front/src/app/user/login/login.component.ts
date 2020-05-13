@@ -20,16 +20,16 @@ export class LoginComponent implements OnInit {
               private alertService : AlertService,
               private userService : UserService) { }
 
-  connexion : FormGroup;
+  connection : FormGroup;
 
-  inscription : FormGroup;
+  register : FormGroup;
 
   ngOnInit(): void {
-    this.connexion = this.formBuilder.group({
+    this.connection = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.inscription = this.formBuilder.group({
+    this.register = this.formBuilder.group({
       name: ['', Validators.required],
       firstName: ['', Validators.required],
       username: ['', Validators.required],
@@ -40,18 +40,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  invalidInscription() : boolean {
-    return this.inscription.invalid || 
-           this.inscription.value.password != this.inscription.value.repeatPassword ||
-           this.inscription.value.password == "";
+  invalidRegister() : boolean {
+    return this.register.invalid || 
+           this.register.value.password != this.register.value.repeatPassword ||
+           this.register.value.password == "";
   }
 
   attemptLogin() {
     /* Nettoyage de la fenêtre d'alerte */
     this.alertService.clear();
 
-    if (this.connexion.valid) {
-      this.authService.login(this.connexion.value.username, this.connexion.value.password)
+    if (this.connection.valid) {
+      this.authService.login(this.connection.value.username, this.connection.value.password)
           .pipe(first())
           .subscribe(
             data => {
@@ -67,18 +67,18 @@ export class LoginComponent implements OnInit {
   attemptRegistration() {
     /* Nettoyage de la fenêtre d'alerte */
     this.alertService.clear();
-    if (!this.invalidInscription()) {
+    if (!this.invalidRegister()) {
       let user = new User();
       /* Récupération des champs */
-      user.username = this.inscription.value.username;
-      user.name = this.inscription.value.name;
-      user.firstName = this.inscription.value.firstName;
-      user.password = this.inscription.value.password;
-      user.mail = this.inscription.value.mail;
-      user.phone = this.inscription.value.phone;
+      user.username = this.register.value.username;
+      user.name = this.register.value.name;
+      user.firstName = this.register.value.firstName;
+      user.password = this.register.value.password;
+      user.mail = this.register.value.mail;
+      user.phone = this.register.value.phone;
       /* Inscription de user */
       this.userService.register(user);
-      this.userService.register(this.inscription.value)
+      this.userService.register(this.register.value)
           .pipe(first())
           .subscribe(
             data => {

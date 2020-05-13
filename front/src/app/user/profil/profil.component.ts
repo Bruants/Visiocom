@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../auth/user.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { User } from 'src/app/shared/user.model';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 
 @Component({
   selector: 'app-profil',
@@ -17,6 +18,7 @@ export class ProfilComponent implements OnInit {
 
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
+              private alertService : AlertService,
               private userService : UserService) { 
                 this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
@@ -67,7 +69,7 @@ export class ProfilComponent implements OnInit {
                                                    || this.profil.value.newPassword == "");
   }
 
-  modifierProfil() {
+  modifyProfil() {
     if (!this.invalidProfil()) {
       this.currentUser.name = this.profil.value.name;
       this.currentUser.firstName = this.profil.value.firstName;
@@ -76,7 +78,12 @@ export class ProfilComponent implements OnInit {
       }
       this.currentUser.mail = this.profil.value.mail;
       this.currentUser.phone = this.profil.value.phone;
-      this.userService.modify(this.currentUser);
+      this.userService.modify(this.currentUser).subscribe(data => {
+        this.alertService.success(data.message, true);
+      },
+      error => {
+        this.alertService.error(error);
+      });
     }
   }
 

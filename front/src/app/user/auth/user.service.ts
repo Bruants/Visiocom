@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/user.model';
+import { ReturnMessage } from 'src/app/shared/return-message.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -24,7 +25,7 @@ export class UserService {
         return this.http.delete(`${environment.apiUrl}/users/${username}`, {headers: { 'Content-Type': 'application/json' }});
     }
 
-    modify(user: User) : Observable<User> {
-        return this.http.put<User>(`${environment.apiUrl}/users/${user.username}`, user, {headers: { 'Content-Type': 'application/json' }});
+    modify(user: User) : Observable<ReturnMessage> {
+        return this.http.put<ReturnMessage>(`${environment.apiUrl}/users/${user.username}`, user, {headers: { 'Content-Type': 'application/json' }});
     }
 }
