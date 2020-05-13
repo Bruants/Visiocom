@@ -12,9 +12,9 @@ import { LoginComponent } from './user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './user/profil/profil.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AlertComponent } from './navigation/alert/alert.component';
-import { JwtInterceptor } from './user/auth/jwt.service';
-import { ErrorInterceptor } from './user/error/interceptor.service';
+import { JwtInterceptor } from './core/jwt.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { ErrorInterceptor } from './core/interceptor.service';
 
 @NgModule({
   declarations: [

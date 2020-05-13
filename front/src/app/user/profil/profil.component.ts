@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth/auth.service';
-import { User } from '../user.model';
 import { UserService } from '../auth/user.service';
-import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/auth.service';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-profil',
