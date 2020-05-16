@@ -5,5 +5,4 @@ export class User {
     password:   string;
     mail:       string;
     phone:      string;
-    token:      string;
 }

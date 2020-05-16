@@ -51,6 +51,7 @@ export class ProfilComponent implements OnInit {
   }
 
   updateProfil() {
+    console.log(this.currentUser);
     /* Actualisation du formulaire (Maintient des valeurs) */
     this.profil = this.formBuilder.group({
       username: [this.currentUser.username, Validators.required],
