@@ -89,8 +89,9 @@ export class ProfilComponent implements OnInit {
       this.currentUser.name = this.profil.value.name;
       this.currentUser.firstName = this.profil.value.firstName;
       if (this.isShow) {
-        this.currentUser.password = this.profil.value.password;
+        this.currentUser.newPassword = this.profil.value.newPassword;
       }
+      this.currentUser.password = this.profil.value.password;
       this.currentUser.mail = this.profil.value.mail;
       this.currentUser.phone = this.profil.value.phone;
       this.userService.modify(this.currentUser).subscribe(
