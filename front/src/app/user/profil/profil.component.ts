@@ -14,13 +14,10 @@ import { AlertService } from 'src/app/shared/alert/alert.service';
 export class ProfilComponent implements OnInit {
   currentUser : User
 
-  private currentUserSubject: BehaviorSubject<User>;
-
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
               private alertService : AlertService,
               private userService : UserService) { 
-                this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -29,24 +26,41 @@ export class ProfilComponent implements OnInit {
   isShow : boolean = false;
 
   ngOnInit(): void {
+    this.initProfil();
     this.refreshProfil();
+  }
+
+  initProfil() {
+    let name = this.currentUser.name.length > 0 ? this.currentUser.name : ''
+    let firstName = this.currentUser.firstName.length > 0 ? this.currentUser.firstName : ''
+    let mail = this.currentUser.mail.length > 0 ? this.currentUser.mail : ''
+    let phone = this.currentUser.phone.length > 0 ? this.currentUser.phone : ''
+    this.profil = this.formBuilder.group({
+      username: [this.currentUser.username, Validators.required],
+      name: [name, Validators.required],
+      firstName: [firstName, Validators.required],
+      password: ['', Validators.required],
+      newPassword: [''],
+      repeatPassword: [''],
+      mail: [mail, [Validators.required, Validators.email]],
+      phone: [phone]
+    });
   }
 
   refreshProfil() {
     /* Mise à jour du formulaire (Nouvelles valeurs) */
     this.userService.get(this.currentUser.username).subscribe(datas => {
+      this.profil = this.formBuilder.group({
+        username: [datas.username, Validators.required],
+        name: [datas.name, Validators.required],
+        firstName: [datas.firstName, Validators.required],
+        password: ['', Validators.required],
+        newPassword: [''],
+        repeatPassword: [''],
+        mail: [datas.mail, [Validators.required, Validators.email]],
+        phone: [datas.phone]
+      });
       this.currentUser = datas;
-    });
-
-    this.profil = this.formBuilder.group({
-      username: [this.currentUser.username, Validators.required],
-      name: [this.currentUser.name, Validators.required],
-      firstName: [this.currentUser.firstName, Validators.required],
-      password: ['', Validators.required],
-      newPassword: [''],
-      repeatPassword: [''],
-      mail: [this.currentUser.mail, [Validators.required, Validators.email]],
-      phone: [this.currentUser.phone]
     });
   }
 
@@ -78,11 +92,17 @@ export class ProfilComponent implements OnInit {
       }
       this.currentUser.mail = this.profil.value.mail;
       this.currentUser.phone = this.profil.value.phone;
-      this.userService.modify(this.currentUser).subscribe(data => {
-        this.alertService.success(data.message, true);
-      },
-      error => {
-        this.alertService.error(error);
+      this.userService.modify(this.currentUser).subscribe(
+        data => {
+          this.alertService.success(data.message, true);
+          /*
+           * Le profil est mis à jour => on supprime le mot de passe de l'affichage
+           * L'utilisateur doit le resaisir pour de nouveau modifier le profil
+           */
+          this.initProfil();
+        },
+        error => {
+          this.alertService.error(error);
       });
     }
   }
@@ -116,5 +136,4 @@ export class ProfilComponent implements OnInit {
     this.updateProfil()
     this.isShow = false;
   }
-
 }
