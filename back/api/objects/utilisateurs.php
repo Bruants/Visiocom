@@ -98,7 +98,6 @@ class Utilisateurs {
 
     // patch the product
 function put(){
-  
     // update query
     $query = "UPDATE
                 " . $this->table_name . "
@@ -106,7 +105,8 @@ function put(){
                 firstName = :firstName,
                 name = :name,
                 mail = :mail,
-                phone = :phone
+                phone = :phone,
+                passwordHashed = :passwordHashed
             WHERE
                 username = :username";
   
@@ -114,11 +114,12 @@ function put(){
         $stmt = $this->conn->prepare($query);
     
         // sanitize
-        $this->name=htmlspecialchars(strip_tags($this->name));
         $this->username=htmlspecialchars(strip_tags($this->username));
         $this->firstName=htmlspecialchars(strip_tags($this->firstName));
+        $this->name=htmlspecialchars(strip_tags($this->name));
         $this->mail=htmlspecialchars(strip_tags($this->mail));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
+        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
     
         // bind values
         $stmt->bindParam(":username", $this->username);
@@ -126,6 +127,7 @@ function put(){
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":mail", $this->mail);
         $stmt->bindParam(":phone", $this->phone);
+        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
 
         // execute the query
     if($stmt->execute()){
