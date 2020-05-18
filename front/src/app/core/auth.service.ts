@@ -49,6 +49,7 @@ export class AuthService {
         // Suppression des données pour l'utilisateur courant dans le stockage local
         localStorage.removeItem('token');
         localStorage.removeItem('currentUser');
+        this.tokenValue = null;
         this.currentUserSubject.next(null);
     }
 }
