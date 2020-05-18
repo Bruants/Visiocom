@@ -39,6 +39,7 @@ export class AuthService {
                         
                         console.log(localStorage.getItem('currentUser'));
                         console.log(localStorage.getItem('token'));
+                        this.tokenValue = localStorage.getItem('token');
                         this.currentUserSubject.next(user);
                         return user;
                     }));
