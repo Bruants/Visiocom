@@ -28,7 +28,6 @@ export class AuthService {
                         let infosUser: User = {
                             name:       user.name,
                             firstName:  user.firstName,
-                            newPassword: "",
                             username:   user.username,
                             password:   user.password,
                             mail:       user.mail,
