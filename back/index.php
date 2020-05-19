@@ -18,6 +18,9 @@ $router->put('/users/:username', function($username){ require("./api/utilisateur
 $router->delete('/users/:username', function($username){ require("./api/utilisateurs/deleteuser.php"); }); // Delete d'un user 
 $router->get('/users/:username', function($username){ require("./api/utilisateurs/read.php"); }); // get d'un user
 
+/* Trello */
+$router->put('/api/trello/:username', function($username){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
+
 
 $router->run(); 
 
