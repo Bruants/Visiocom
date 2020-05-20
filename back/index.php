@@ -1,5 +1,7 @@
 <?php
-include_once './router.php';
+include_once 'url.php';
+include_once 'config.php';
+include_once 'router.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Content-Type: application/json; charset=UTF-8");
@@ -20,6 +22,7 @@ $router->get('/users/:username', function($username){ require("./api/utilisateur
 
 /* Trello */
 $router->put('/api/trello/:username', function($username){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
+$router->get('/api/trello/:username', function($username){ require("./api/trello/boards.php"); }); // Récupération des tableaux
 
 
 $router->run(); 
