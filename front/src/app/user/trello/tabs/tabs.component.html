@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Mes projets</h1>
+
+    <div *ngFor='let tab of tabs; index as i;'>
+        <!--<a href="http://localhost:4200/user/trello/board/{{board.id}">{{i+1}}. {{boards.length}}. {{board.name}}. {{board.id}}</a>-->
+        <section id="services">
+            <div class="container">
+                <div class="row space-rows" id="animated-cards">
+                    <div class="col">
+                        <div class="card cards-shadown cards-hover">
+                            <div class="card-header"><span class="space"><i class="fab fa-angular service-icon" id="service-icon-1"></i></span>
+                                <div class="cardheader-text">
+                                    <a [routerLink]="['board', tab.id]"><h4 id="heading-card-1" class="heading-card">{{tab.name}}</h4></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

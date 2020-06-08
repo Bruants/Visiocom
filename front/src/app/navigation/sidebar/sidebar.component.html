@@ -15,6 +15,9 @@
         <li id="user">
             <a [routerLink]="['user/profil']" [hidden]="!userLogged()">Mon profil</a>
         </li>
+        <li id="trello">
+            <a [routerLink]="['user/trello/tabs']" [hidden]="!userLogged()">Trello</a>
+        </li>
     </ul>
     <ul class="list-unstyled CTAs">
         <div *ngIf="userLogged(); then thenBlock else elseBlock"></div>
@@ -24,6 +27,5 @@
         <ng-template #elseBlock>
             <li><a class="article" [routerLink]="['user/login']" routerLinkActive="router-link-active">Connexion</a></li>
         </ng-template>
-        
     </ul>
 </nav>
