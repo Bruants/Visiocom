@@ -27,7 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AboutComponent,
     LoginComponent,
     ProfilComponent,
-    AlertComponent  
+    AlertComponent
   ],
   imports: [
     BrowserModule,

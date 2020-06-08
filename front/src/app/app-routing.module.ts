@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'home', 
     component: HomeComponent },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
-  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) }
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
+  { path: 'user/trello', loadChildren: () => import('./user/trello/trello.module').then(m => m.TrelloModule) },
 ];
 
 @NgModule({
