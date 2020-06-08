@@ -24,6 +24,7 @@ export class BoardComponent implements OnInit {
    this.authService.currentUser.subscribe(x => this.currentUser = x);
    this.currentTrello = new Trello();
    this.currentTrello.username = this.currentUser.username;
+   this.currentTrello.board = this.id;
 
    /* this.list = this.trelloService.getList(this.currentTrello); TODO back */
     this.lists = [
