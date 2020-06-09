@@ -33,4 +33,13 @@ class Route {
     }
 
 }
+
+class RouterException extends Exception {
+    private $libelleErreur;
+    
+    public function __construct($libelle) {
+        $libelleErreur = $libelle;
+        echo $libelleErreur;
+    }
+}
 ?>

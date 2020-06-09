@@ -48,7 +48,7 @@ class Router {
                 return $route->call();
             }
         }
-        throw new RouterException('No matching routes');
+        throw new Exception('No matching routes');
     }
 
     public function url($name, $params = []){
