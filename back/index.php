@@ -2,6 +2,8 @@
 include_once 'url.php';
 include_once 'config.php';
 include_once 'router.php';
+include_once 'api/requestAPI.php';
+include_once 'api/apilink.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Content-Type: application/json; charset=UTF-8");
@@ -21,8 +23,11 @@ $router->delete('/users/:username', function($username){ require("./api/utilisat
 $router->get('/users/:username', function($username){ require("./api/utilisateurs/read.php"); }); // get d'un user
 
 /* Trello */
-$router->put('/api/trello/:username', function($username){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
-$router->get('/api/trello/:username', function($username){ require("./api/trello/boards.php"); }); // Récupération des tableaux
+// $router->post('/api/trello/:username/:token', function($username, $token){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
+$router->get('/api/trello/:username/boards', function($username){ require("./api/trello/boards.php"); }); // Récupération des tableaux
+$router->get('/api/trello/:username/boards/:board/lists', function($username, $board){ require("./api/trello/lists.php"); }); // Récupération des listes d'un tableau
+$router->get('/api/trello/:username/lists/:list/cards', function($username, $list){ require("./api/trello/cards.php"); }); // Récupération des tâches d'une liste
+$router->post('/api/trello/:username/cards', function($username){ require("./api/trello/addCards.php"); }); // Ajouter une carte dans une liste
 
 
 $router->run(); 

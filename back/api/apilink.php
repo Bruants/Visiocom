@@ -2,7 +2,7 @@
 
 function apiLink($username, $token, $api){
     $query = "  INSERT INTO api_link 
-                    SET username=:username, api_type=:apiType, api_token=:apiToken";
+                SET username=:username, api_type=:apiType, api_token=:apiToken";
 
     // prepare query
     $database = new Database();
@@ -27,6 +27,18 @@ function apiLink($username, $token, $api){
 
     return false;
 
+}
+
+function getToken($username, $type) {
+    $username = htmlspecialchars($username);
+    $type = htmlspecialchars($type);
+    $sqlToken = "SELECT api_token FROM api_link WHERE username = :username AND api_type = :api_type";
+    $database = new Database();
+    $db = $database->getConnection();
+    $searchToken = $db->prepare($sqlToken);
+    $searchToken->execute(['username' => $username, 'api_type' => $type]);
+    $resultat = $searchToken->fetch();
+    return $resultat['api_token'];
 }
 
 ?>
