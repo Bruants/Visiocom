@@ -22,13 +22,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   inWhichPages(): void {    
-    this.isInPage("home");
-    this.isInPage("about");
-    this.isInPage("user");
+    this.isInPage("home", "");
+    this.isInPage("about", "");
+    this.isInPage("profil", "user/");
+    this.isInPage("tabs", "user/trello/");
   }
 
-  isInPage(page: string): void {
-    if(this.route.url.startsWith("/" + page)){
+  isInPage(page: string, prefixe: string): void {
+    if(this.route.url.startsWith( "/" + prefixe + page)){
       document.getElementById(page).className = "active";
     } else {
       document.getElementById(page).className = ""
