@@ -23,7 +23,7 @@ $router->delete('/users/:username', function($username){ require("./api/utilisat
 $router->get('/users/:username', function($username){ require("./api/utilisateurs/read.php"); }); // get d'un user
 
 /* Trello */
-// $router->post('/api/trello/:username/:token', function($username, $token){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
+$router->put('/api/trello/:username/:token', function($username, $token){ require("./api/trello/linkuser.php"); }); // Lien entre token trello et user
 $router->get('/api/trello/:username/boards', function($username){ require("./api/trello/boards.php"); }); // Récupération des tableaux
 $router->get('/api/trello/:username/boards/:board/lists', function($username, $board){ require("./api/trello/lists.php"); }); // Récupération des listes d'un tableau
 $router->get('/api/trello/:username/lists/:list/cards', function($username, $list){ require("./api/trello/cards.php"); }); // Récupération des tâches d'une liste

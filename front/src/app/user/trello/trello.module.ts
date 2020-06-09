@@ -6,9 +6,10 @@ import { TrelloComponent } from './trello.component';
 import { BoardComponent } from './board/board.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { ListComponent } from './list/list.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
-  declarations: [TrelloComponent, TabsComponent, BoardComponent, ListComponent],
+  declarations: [TrelloComponent, TabsComponent, BoardComponent, ListComponent, CardComponent],
   imports: [
     CommonModule,
     TrelloRoutingModule
