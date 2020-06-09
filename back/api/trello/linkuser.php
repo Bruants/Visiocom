@@ -15,20 +15,38 @@ include_once './api/config/core.php';
 
 // Verify token 
 if (isset(getallheaders()["Authorization"])) {
-  if( !apiLink($username, $token, 'trello')){
-    // set response code - 404 Not found
-    http_response_code(503);
+  if (!tokenExist($username, 'trello')) {
+    if(!apiLink($username, $token, 'trello')){
+      // set response code - 404 Not found
+      http_response_code(503);
 
-    // tell the user no products found
-    echo json_encode(
-      array("message" => "Error, trello token not insert")
-    );
+      // tell the user no products found
+      echo json_encode(
+        array("message" => "Error, trello token not insert")
+      );
+    } else {
+      // set response code - 201 created
+      http_response_code(201);
+        
+      // tell the user
+      echo json_encode(array("message" => "Trello token was linked"));
+    }
   } else {
-    // set response code - 201 created
-    http_response_code(201);
-      
-    // tell the user
-    echo json_encode(array("message" => "Trello token was linked"));
+    if(!updateToken($username, $token, 'trello')){
+      // set response code - 404 Not found
+      http_response_code(503);
+
+      // tell the user no products found
+      echo json_encode(
+        array("message" => "Error, trello token not insert")
+      );
+    } else {
+      // set response code - 201 created
+      http_response_code(201);
+        
+      // tell the user
+      echo json_encode(array("message" => "Trello token was update"));
+    }
   }
 } else {
   // set response code - 404 Not found

@@ -24,14 +24,8 @@ if (!isset(getallheaders()["Authorization"])) {
     // get posted data
     $data = json_decode(file_get_contents("php://input"));
     // make sure data is not empty
-    if(
-        !empty($data->username) &&
-        !empty($data->password) &&
-        !empty($data->firstName) &&
-        !empty($data->name) &&
-        !empty($data->mail) &&
-        !empty($data->phone)
-    ){
+    if (!empty($data->username) && !empty($data->password) && !empty($data->firstName) && !empty($data->name) &&
+        !empty($data->mail)) {
     
         // set utilisateur property values
         $utilisateur->username = $data->username;

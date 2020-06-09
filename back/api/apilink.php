@@ -1,5 +1,27 @@
 <?php
 
+function tokenExist($username, $type) {
+    // prepare query
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $sqlExist = "SELECT COUNT(*) FROM api_link WHERE username = :username AND api_type = :api_type";
+    $searchToken = $db->prepare($sqlExist);
+    $searchToken->execute(['username' => $username, 'api_type' => $type]);
+    $resultat = $searchToken->fetch();
+    return $resultat['COUNT(*)'] > 0;
+}
+
+function updateToken($username, $token, $type) {
+    // prepare query
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $sqlUpdate = "UPDATE api_link SET api_token = :token WHERE username = :username AND api_type = :api_type";
+    $updateToken = $db->prepare($sqlUpdate);
+    return $updateToken->execute(['token' => $token, 'username' => $username, 'api_type' => $type]);
+}
+
 function apiLink($username, $token, $api){
     $query = "  INSERT INTO api_link 
                 SET username=:username, api_type=:apiType, api_token=:apiToken";
