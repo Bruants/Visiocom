@@ -15,7 +15,7 @@ import { TrelloService } from '../trello/request/trello.service';
 })
 export class ProfilComponent implements OnInit {
   currentUser : User
-  currentTrello : Trello
+  currentTrello : Trello = new Trello();
 
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
@@ -158,7 +158,7 @@ export class ProfilComponent implements OnInit {
   modifyTrello() {
     if (!this.invalidTrello()) {
       this.currentTrello.username = this.profil.value.username;
-      this.currentTrello.tokenTrello = this.profil.value.tokenTrello;
+      this.currentTrello.tokenTrello = this.trello.value.tokenTrello;
       this.trelloService.modify(this.currentTrello).subscribe(
         data => {
           this.alertService.success(data.message, true);

@@ -21,8 +21,6 @@ export class ListComponent implements OnInit {
   cards : Card[];
 
   constructor(private trelloService : TrelloService,private authService : AuthService) {
-
-   
    }
 
   ngOnInit(): void {
@@ -33,8 +31,8 @@ export class ListComponent implements OnInit {
     this.currentTrello.board = this.list.idBoard;
     this.currentTrello.list = this.list.id;
  
-    /* this.cards = this.trelloService.getCards(this.currentTrello); TODO back */
-    this.cards = [
+    this.trelloService.getCards(this.currentTrello).subscribe(x => this.cards = x);
+    /*this.cards = [
       {
          "id": "5eb194636701063c6e6a1195",
          "checkItemStates": null,
@@ -452,7 +450,7 @@ export class ListComponent implements OnInit {
             "brightness": "light"
          }
       }
-   ]
+   ]*/
   }
 
 }
