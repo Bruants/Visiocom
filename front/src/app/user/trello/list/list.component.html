@@ -1,0 +1,14 @@
+
+<!-- Lists container -->
+	<div class="list">
+
+		<h3 class="list-title">{{list.name}}</h3>
+
+		<ul class="list-items">
+			<li *ngFor='let card of cards;'>
+				<app-card [card]=card></app-card>
+			</li>
+		</ul>
+
+	</div>
+<!-- End of lists container -->

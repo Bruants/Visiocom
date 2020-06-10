@@ -12,6 +12,7 @@ include_once './api/config/database.php';
 // instantiate utilisateur object
 include_once './api/objects/utilisateurs.php';  
 include_once './api/validate_token.php';
+include_once './api/config/core.php';
 
 // Verify token 
 if (!isset(getallheaders()["Authorization"])) {
@@ -23,19 +24,13 @@ if (!isset(getallheaders()["Authorization"])) {
     // get posted data
     $data = json_decode(file_get_contents("php://input"));
     // make sure data is not empty
-    if(
-        !empty($data->username) &&
-        !empty($data->password) &&
-        !empty($data->firstName) &&
-        !empty($data->name) &&
-        !empty($data->mail) &&
-        !empty($data->phone)
-    ){
+    if (!empty($data->username) && !empty($data->password) && !empty($data->firstName) && !empty($data->name) &&
+        !empty($data->mail)) {
     
         // set utilisateur property values
         $utilisateur->username = $data->username;
-        $utilisateur->passwordHashed = $data->password;
-        $utilisateur->firstname = $data->firstName;
+        $utilisateur->passwordHashed = password_hash($data->password, PASSWORD_DEFAULT);
+        $utilisateur->firstName = $data->firstName;
         $utilisateur->name = $data->name;
         $utilisateur->mail = $data->mail;
         $utilisateur->phone = $data->phone;
@@ -49,7 +44,7 @@ if (!isset(getallheaders()["Authorization"])) {
             // tell the user
             echo json_encode(array("message" => "Utilisateur was created."));
         }
-    
+
         // if unable to create the utilisateur, tell the user
         else{
     

@@ -8,7 +8,7 @@ class Utilisateurs {
     // object properties
     public $username; // PRIMARY KEY
     public $passwordHashed;
-    public $firstname;
+    public $firstName;
     public $name;
     public $mail;
     public $phone;
@@ -16,30 +16,6 @@ class Utilisateurs {
     // constructor with $db as database connection
     public function __construct($db) {
         $this->conn = $db;
-    }
-
-    
-    // read utilsitaeurs
-    function connect() {
-    
-        // select all query
-        $query = "
-            SELECT *
-            FROM " . $this->table_name . "
-            WHERE username=:username AND passwordHashed=:passwordHashed";
-    
-        // prepare query statement
-        $stmt = $this->conn->prepare($query);
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
-
-        $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
-
-        // execute query
-        $stmt->execute();
-    
-        return $stmt;
     }
 
     // read utilisateurs
@@ -90,7 +66,7 @@ class Utilisateurs {
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    username=:username, passwordHashed=:passwordHashed, firstname=:firstname, name=:name, mail=:mail, phone=:phone";
+                    username=:username, passwordHashed=:passwordHashed, firstName=:firstName, name=:name, mail=:mail, phone=:phone";
     
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -99,14 +75,14 @@ class Utilisateurs {
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->username=htmlspecialchars(strip_tags($this->username));
         $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
-        $this->firstname=htmlspecialchars(strip_tags($this->firstname));
+        $this->firstName=htmlspecialchars(strip_tags($this->firstName));
         $this->mail=htmlspecialchars(strip_tags($this->mail));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
     
         // bind values
         $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":passwordHashed", $this->passwordHashed);
-        $stmt->bindParam(":firstname", $this->firstname);
+        $stmt->bindParam(":firstName", $this->firstName);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":mail", $this->mail);
         $stmt->bindParam(":phone", $this->phone);
@@ -122,16 +98,15 @@ class Utilisateurs {
 
     // patch the product
 function put(){
-  
     // update query
     $query = "UPDATE
                 " . $this->table_name . "
             SET
-                passwordHashed = :passwordHashed,
-                firstname = :firstname,
+                firstName = :firstName,
                 name = :name,
                 mail = :mail,
-                phone = :phone
+                phone = :phone,
+                passwordHashed = :passwordHashed
             WHERE
                 username = :username";
   
@@ -139,20 +114,20 @@ function put(){
         $stmt = $this->conn->prepare($query);
     
         // sanitize
-        $this->name=htmlspecialchars(strip_tags($this->name));
         $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
-        $this->firstname=htmlspecialchars(strip_tags($this->firstname));
+        $this->firstName=htmlspecialchars(strip_tags($this->firstName));
+        $this->name=htmlspecialchars(strip_tags($this->name));
         $this->mail=htmlspecialchars(strip_tags($this->mail));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
+        $this->passwordHashed=htmlspecialchars(strip_tags($this->passwordHashed));
     
         // bind values
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
-        $stmt->bindParam(":firstname", $this->firstname);
+        $stmt->bindParam(":firstName", $this->firstName);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":mail", $this->mail);
         $stmt->bindParam(":phone", $this->phone);
+        $stmt->bindParam(":passwordHashed", $this->passwordHashed);
 
         // execute the query
     if($stmt->execute()){

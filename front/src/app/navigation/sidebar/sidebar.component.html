@@ -12,8 +12,11 @@
         <li id="about">
             <a [routerLink]="['about']">À propos</a>
         </li>
-        <li id="user">
+        <li id="profil">
             <a [routerLink]="['user/profil']" [hidden]="!userLogged()">Mon profil</a>
+        </li>
+        <li id="tabs">
+            <a [routerLink]="['user/trello/tabs']" [hidden]="!userLogged()">Trello</a>
         </li>
     </ul>
     <ul class="list-unstyled CTAs">
@@ -24,6 +27,5 @@
         <ng-template #elseBlock>
             <li><a class="article" [routerLink]="['user/login']" routerLinkActive="router-link-active">Connexion</a></li>
         </ng-template>
-        
     </ul>
 </nav>

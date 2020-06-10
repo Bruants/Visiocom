@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth/auth.service';
-import { User } from '../user.model';
 import { UserService } from '../auth/user.service';
-import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/core/auth.service';
+import { User } from 'src/app/shared/user.model';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import { Trello } from 'src/app/shared/trello.model';
+import { TrelloService } from '../trello/request/trello.service';
 
 @Component({
   selector: 'app-profil',
@@ -13,44 +15,67 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ProfilComponent implements OnInit {
   currentUser : User
-
-  private currentUserSubject: BehaviorSubject<User>;
+  currentTrello : Trello = new Trello();
 
   constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
-              private userService : UserService) { 
-                this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+              private alertService : AlertService,
+              private userService : UserService,
+              private trelloService : TrelloService) { 
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
   profil : FormGroup;
 
+  trello : FormGroup;
+
   isShow : boolean = false;
 
   ngOnInit(): void {
+    this.initProfil();
+    this.initTrello();
     this.refreshProfil();
+  }
+
+  initProfil() {
+    let name = this.currentUser.name.length > 0 ? this.currentUser.name : ''
+    let firstName = this.currentUser.firstName.length > 0 ? this.currentUser.firstName : ''
+    let mail = this.currentUser.mail.length > 0 ? this.currentUser.mail : ''
+    let phone = this.currentUser.phone.length > 0 ? this.currentUser.phone : ''
+
+    this.profil = this.formBuilder.group({
+      username: [this.currentUser.username, Validators.required],
+      name: [name, Validators.required],
+      firstName: [firstName, Validators.required],
+      password: ['', Validators.required],
+      newPassword: [''],
+      repeatPassword: [''],
+      mail: [mail, [Validators.required, Validators.email]],
+      phone: [phone],
+      mailTrello: ['', [Validators.required, Validators.email]],
+      passwordTrello: ['', Validators.required],
+    });
   }
 
   refreshProfil() {
     /* Mise à jour du formulaire (Nouvelles valeurs) */
     this.userService.get(this.currentUser.username).subscribe(datas => {
-      console.log(datas);
+      this.profil = this.formBuilder.group({
+        username: [datas.username, Validators.required],
+        name: [datas.name, Validators.required],
+        firstName: [datas.firstName, Validators.required],
+        password: ['', Validators.required],
+        newPassword: [''],
+        repeatPassword: [''],
+        mail: [datas.mail, [Validators.required, Validators.email]],
+        phone: [datas.phone],
+      });
       this.currentUser = datas;
-    });
-
-    this.profil = this.formBuilder.group({
-      username: [this.currentUser.username, Validators.required],
-      name: [this.currentUser.name, Validators.required],
-      firstName: [this.currentUser.firstName, Validators.required],
-      password: ['', Validators.required],
-      newPassword: [''],
-      repeatPassword: [''],
-      mail: [this.currentUser.mail, [Validators.required, Validators.email]],
-      phone: [this.currentUser.phone]
     });
   }
 
   updateProfil() {
+    console.log(this.currentUser);
     /* Actualisation du formulaire (Maintient des valeurs) */
     this.profil = this.formBuilder.group({
       username: [this.currentUser.username, Validators.required],
@@ -65,22 +90,32 @@ export class ProfilComponent implements OnInit {
   }
 
   invalidProfil() : boolean {
-    console.log(this.currentUser.password);
     return this.profil.invalid || this.isShow && (this.profil.value.newPassword != this.profil.value.repeatPassword
                                                    || this.profil.value.newPassword == "");
   }
 
-  modifierProfil() {
+  modifyProfil() {
     if (!this.invalidProfil()) {
       this.currentUser.name = this.profil.value.name;
       this.currentUser.firstName = this.profil.value.firstName;
       if (this.isShow) {
-        this.currentUser.password = this.profil.value.password;
+        this.currentUser.newPassword = this.profil.value.newPassword;
       }
+      this.currentUser.password = this.profil.value.password;
       this.currentUser.mail = this.profil.value.mail;
       this.currentUser.phone = this.profil.value.phone;
-      this.userService.modify(this.currentUser);
-      this.refreshProfil();
+      this.userService.modify(this.currentUser).subscribe(
+        data => {
+          this.alertService.success(data.message, true);
+          /*
+           * Le profil est mis à jour => on supprime le mot de passe de l'affichage
+           * L'utilisateur doit le resaisir pour de nouveau modifier le profil
+           */
+          this.initProfil();
+        },
+        error => {
+          this.alertService.error(error);
+      });
     }
   }
 
@@ -112,6 +147,50 @@ export class ProfilComponent implements OnInit {
   noShow() {
     this.updateProfil()
     this.isShow = false;
+  }
+
+  
+  invalidTrello() : boolean {
+    console.log("token trello : " + this.trello.value.tokenTrello);
+    return  !(this.profil.value.username && this.trello.value.tokenTrello);
+  }
+
+  modifyTrello() {
+    if (!this.invalidTrello()) {
+      this.currentTrello.username = this.profil.value.username;
+      this.currentTrello.tokenTrello = this.trello.value.tokenTrello;
+      this.trelloService.modify(this.currentTrello).subscribe(
+        data => {
+          this.alertService.success(data.message, true);
+          /*
+           * Le profil est mis à jour => on supprime le mot de passe de l'affichage
+           * L'utilisateur doit le resaisir pour de nouveau modifier le profil
+           */
+          this.initProfil();
+        },
+        error => {
+          this.alertService.error(error);
+      });
+    }
+  }
+
+   
+  initTrello() {
+
+    this.trello = this.formBuilder.group({
+      tokenTrello: ['', [Validators.required, Validators.email]],
+      passwordTrello: ['', Validators.required],
+    });
+  }
+
+
+  updateTrello() {
+    console.log(this.currentTrello);
+    /* Actualisation du formulaire (Maintient des valeurs) */
+    this.trello = this.formBuilder.group({
+      mailTrello: [this.trello.value.tokenTrello, [Validators.required, Validators.email]],
+      passwordTrello: [this.trello.value.passwordTrello, Validators.required]
+    });
   }
 
 }

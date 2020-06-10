@@ -1,18 +1,19 @@
 <?php
 // required headers
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://localhost:4200");
 header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Authorization");
 
 // include database and object files
-include_once '../config/database.php';
-include_once '../objects/utilisateurs.php';
-include_once '../validate_token.php';
+include_once './api/config/database.php';
+  
+// instantiate utilisateur object
+include_once './api/objects/utilisateurs.php';  
+include_once './api/validate_token.php';
 
 // Verify token 
-if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isValid(getallheaders()["Authorization"], $_GET["username"]) == true) {
+if (isset(getallheaders()["Authorization"]) && isValid(getallheaders()["Authorization"], $username) == true) {
     // instantiate database and utilisateurs object
     $database = new Database();
     $db = $database->getConnection();
@@ -21,8 +22,7 @@ if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isVal
     
     // read utilisateurs will be here
     // query utilisateurs
-    if (isset($_GET["username"])) {
-        $utilisateurs->username = $_GET["username"];
+        $utilisateurs->username = $username;
         $stmt = $utilisateurs->read();
         $num = $stmt->rowCount();
         
@@ -45,8 +45,7 @@ if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isVal
                 $utilisateurs_item=array(
                     "name" => $name,
                     "username" => $username,
-                    "passwordHashed" => $passwordHashed,
-                    "firstname" => $firstname,
+                    "firstName" => $firstName,
                     "mail" => $mail,
                     "phone" => $phone
                 );
@@ -68,16 +67,7 @@ if (isset(getallheaders()["Authorization"]) && isset($_GET["username"]) && isVal
             );
         }
 
-    } else{
-    
-        // set response code - 404 Not found
-        http_response_code(404);
-    
-        // tell the user no products found
-        echo json_encode(
-            array("message" => "No users in parameter.")
-        );
-    }
+
 } else {
     // set response code - 404 Not found
     http_response_code(403);

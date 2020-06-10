@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/user/auth/auth.service';
-import { AuthGuard } from 'src/app/user/auth/guard.service';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,13 +22,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   inWhichPages(): void {    
-    this.isInPage("home");
-    this.isInPage("about");
-    this.isInPage("user");
+    this.isInPage("home", "");
+    this.isInPage("about", "");
+    this.isInPage("profil", "user/");
+    this.isInPage("tabs", "user/trello/");
   }
 
-  isInPage(page: string): void {
-    if(this.route.url.startsWith("/" + page)){
+  isInPage(page: string, prefixe: string): void {
+    if(this.route.url.startsWith( "/" + prefixe + page)){
       document.getElementById(page).className = "active";
     } else {
       document.getElementById(page).className = ""

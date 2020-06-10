@@ -3,7 +3,7 @@
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Se connecter</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">S'inscrire</label>
 		<div class="login-form">
-			<form class="sign-in-htm" [formGroup]="connexion" (ngSubmit)="attemptLogin()">
+			<form class="sign-in-htm" [formGroup]="connection" (ngSubmit)="attemptLogin()">
 				<div class="group">
 					<label for="id_c" class="label">Identifiant :</label>
 					<input id="id_c" type="text" class="input" placeholder="Saisissez votre identifiant..." tabindex="1" formControlName="username" required autofocus>
@@ -17,14 +17,10 @@
 					<label for="check"><span class="icon"></span> Rester connecté</label>
 				</div>
 				<div class="group">
-					<input type="submit" class="button" value="Se connecter" [disabled]="connexion.invalid" tabindex="4">
-				</div>
-				<div class="hr"></div>
-				<div class="foot-lnk">
-					<a href="#forgot">Mot de passe oublié ?</a>
+					<input type="submit" class="button" value="Se connecter" [disabled]="connection.invalid" tabindex="4">
 				</div>
 			</form>
-			<form class="sign-up-htm" [formGroup]="inscription" (ngSubmit)="attemptRegistration()">
+			<form class="sign-up-htm" [formGroup]="register" (ngSubmit)="attemptRegistration()">
 				<div class="group">
 					<label for="name" class="label">Nom :</label>
 					<input id="name" type="text" class="input" placeholder="Saisissez votre nom..." tabindex="5" formControlName="name" required autofocus>
@@ -51,10 +47,10 @@
 				</div>
 				<div class="group">
                     <label for="phone" class="label">Numéro de téléphone :</label>
-                    <input id="phone" type="tel" class="input" pattern="[0-9]{10}" maxlength="11" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="7">
+                    <input id="phone" type="tel" class="input" pattern="[0-9]{10}" maxlength="10" placeholder="Saisissez votre numéro de téléphone... (facultatif)" formControlName="phone" tabindex="11">
 				</div>
 				<div class="group">
-					<input type="submit" class="button" [disabled]="invalidInscription()" value="Inscription" tabindex="12">
+					<input type="submit" class="button" [disabled]="invalidRegister()" value="Inscription" tabindex="12">
 				</div>
 				<div class="hr"></div>
 				<div class="foot-lnk">

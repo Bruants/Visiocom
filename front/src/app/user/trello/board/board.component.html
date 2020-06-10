@@ -1,0 +1,8 @@
+<div class="listes">
+<div class="list" *ngFor='let list of lists;'>
+    <!--<a href="http://localhost:4200/user/trello/board/{{board.id}">{{i+1}}. {{boards.length}}. {{board.name}}. {{board.id}}</a>-->
+        <div class="container">
+           <app-list [list]=list></app-list>
+        </div>
+</div>
+</div>

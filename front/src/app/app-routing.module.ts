@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './user/login/login.component';
-import { ProfilComponent } from './user/profil/profil.component';
-import { AuthGuard } from './user/auth/guard.service';
 
 const routes: Routes = [
   { 
@@ -15,27 +11,10 @@ const routes: Routes = [
   { 
     path: 'home', 
     component: HomeComponent },
-  { 
-    path: 'about', 
-    component: AboutComponent },
-  {
-    path: 'user',
-    children: [
-      {
-        path: '',
-        component: LoginComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'profil',
-        canActivate: [AuthGuard],
-        component: ProfilComponent
-      }
-    ]
-  }
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
+  { path: 'user/profil', loadChildren: () => import('./user/profil/profil.module').then(m => m.ProfilModule) },
+  { path: 'user/trello', loadChildren: () => import('./user/trello/trello.module').then(m => m.TrelloModule) },
 ];
 
 @NgModule({
